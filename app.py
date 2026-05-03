@@ -7,7 +7,7 @@ st.title("Heart Disease Prediction")
 st.write("App is running...")
 
 try:
-    model_path = os.path.join(os.getcwd(), "gb_model.pkl")
+    model_path = os.path.join(os.getcwd(), "gboost_model.pkl")
     model = pickle.load(open(model_path, "rb"))
 
     st.success("Model loaded successfully")
