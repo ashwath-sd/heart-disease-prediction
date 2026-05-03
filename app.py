@@ -7,10 +7,10 @@ st.title("Heart Disease Prediction")
 st.write("App is running...")
 
 try:
- model_path = os.path.join(os.getcwd(), "gb_model.pkl")
-model = pickle.load(open(model_path, "rb"))
+    model_path = os.path.join(os.getcwd(), "gb_model.pkl")
+    model = pickle.load(open(model_path, "rb"))
 
-    st.success("Model loaded successfully")
+    st.success("✅ Model loaded successfully")
 
 except Exception as e:
-    st.error(f"Error: {e}")
+    st.error(f"❌ Error: {e}")
