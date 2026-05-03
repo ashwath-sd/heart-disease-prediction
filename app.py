@@ -8,7 +8,7 @@ st.write("App is running...")
 
 try:
     model_path = os.path.join(os.getcwd(), "gboost_model.pkl")
-    model = pickle.load(open(model_path, "rb"))
+    model = pickle.load(open(gboost_model_path, "rb"))
 
     st.success("Model loaded successfully")
 
