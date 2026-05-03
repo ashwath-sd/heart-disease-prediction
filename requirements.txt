@@ -1,5 +1,5 @@
 numpy
 pandas
-steramlit
+streamlit
 pickle-mixin
 scikit-learn
