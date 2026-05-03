@@ -1,13 +1,16 @@
 import streamlit as st
 import pickle
+import os
 
 st.title("Heart Disease Prediction")
 
+st.write("App is running...")
+
 try:
-    model = pickle.load(open("gb_model.pkl", "rb"))
-    scaler = pickle.load(open("scaler.pkl", "rb"))  # make sure this exists
+    model_path = os.path.join(os.getcwd(), "gb_model.pkl")
+    model = pickle.load(open(model_path, "rb"))
 
     st.success("Model loaded successfully")
 
 except Exception as e:
-    st.error(f"Error loading model: {e}")
+    st.error(f"Error: {e}")
