@@ -17,12 +17,13 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Full Page Background */
+/* ===== FULL PAGE BACKGROUND ===== */
 .stApp {
-    background-color: #f3f4f6;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe, #93c5fd);
+    background-attachment: fixed;
 }
 
-/* Header Banner */
+/* ===== HEADER SECTION ===== */
 .header-container {
     background: linear-gradient(135deg, #0f172a, #2563eb);
     padding: 45px;
@@ -30,10 +31,9 @@ st.markdown("""
     text-align: center;
     color: white;
     margin-bottom: 30px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.25);
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.25);
 }
 
-/* Header Title */
 .header-container h1 {
     font-size: 42px;
     font-weight: bold;
@@ -41,37 +41,67 @@ st.markdown("""
     color: white;
 }
 
-/* Header Subtitle */
 .header-container p {
     font-size: 18px;
     color: #dbeafe;
 }
 
-/* Main Input Card */
+/* ===== MAIN CARD ===== */
 .main-box {
-    background-color: white;
+    background-color: rgba(255,255,255,0.95);
     padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.12);
+    border-radius: 22px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.15);
 }
 
-/* Input Labels */
+/* ===== LABELS ===== */
 label {
+    font-size: 16px !important;
     font-weight: 600 !important;
-    color: #111827 !important;
+    color: #1e293b !important;
 }
 
-/* Button Styling */
+/* ===== NUMBER INPUT FIELD ===== */
+.stNumberInput input {
+    background-color: #e0f2fe !important;
+    color: #111827 !important;
+    border-radius: 12px !important;
+    border: 2px solid #7dd3fc !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+}
+
+/* ===== SELECT BOX ===== */
+.stSelectbox div[data-baseweb="select"] {
+    background-color: #dbeafe !important;
+    border-radius: 12px !important;
+    border: 2px solid #60a5fa !important;
+}
+
+/* ===== SELECTBOX TEXT ===== */
+.stSelectbox div {
+    color: #111827 !important;
+    font-size: 16px !important;
+}
+
+/* ===== INPUT HOVER EFFECT ===== */
+.stNumberInput input:hover,
+.stSelectbox div[data-baseweb="select"]:hover {
+    border: 2px solid #2563eb !important;
+    box-shadow: 0px 0px 10px rgba(37,99,235,0.35);
+}
+
+/* ===== BUTTON ===== */
 .stButton > button {
     width: 100%;
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
-    border-radius: 12px;
-    height: 52px;
+    border-radius: 14px;
+    height: 55px;
     font-size: 18px;
     font-weight: bold;
     border: none;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .stButton > button:hover {
@@ -79,28 +109,28 @@ label {
     color: white;
 }
 
-/* High Risk Output */
+/* ===== HIGH RISK RESULT ===== */
 .result-high {
     background-color: #fee2e2;
     padding: 18px;
-    border-radius: 12px;
+    border-radius: 14px;
     color: #991b1b;
     font-size: 24px;
     text-align: center;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
-/* Low Risk Output */
+/* ===== LOW RISK RESULT ===== */
 .result-low {
     background-color: #dcfce7;
     padding: 18px;
-    border-radius: 12px;
+    border-radius: 14px;
     color: #166534;
     font-size: 24px;
     text-align: center;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 </style>
@@ -111,7 +141,7 @@ label {
 # ======================
 st.markdown("""
 <div class="header-container">
-    <h1> Heart Disease Prediction</h1>
+    <h1>❤️ Heart Disease Prediction</h1>
     <p>
         Predict whether a patient is at risk of heart disease
         using machine learning and medical attributes.
@@ -199,12 +229,12 @@ if st.button("Predict Heart Disease Risk"):
     # Output Result
     if prediction[0] == 1:
         st.markdown(
-            '<div class="result-high"> High Risk of Heart Disease</div>',
+            '<div class="result-high">⚠️ High Risk of Heart Disease</div>',
             unsafe_allow_html=True
         )
     else:
         st.markdown(
-            '<div class="result-low">Low Risk of Heart Disease</div>',
+            '<div class="result-low">✅ Low Risk of Heart Disease</div>',
             unsafe_allow_html=True
         )
 
