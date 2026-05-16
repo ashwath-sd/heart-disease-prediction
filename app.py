@@ -18,8 +18,16 @@ st.markdown("""
 <style>
 
 /* ===== MAIN BACKGROUND ===== */
+/* ===== MAIN BACKGROUND ===== */
+/* ===== MAIN BACKGROUND ===== */
 .stApp {
-    background: linear-gradient(135deg, #0f172a, #1e40af, #3b82f6);
+    background: linear-gradient(
+        135deg,
+        #f8fafc,
+        #e0f2fe,
+        #dbeafe,
+        #bfdbfe
+    );
     background-attachment: fixed;
 }
 
