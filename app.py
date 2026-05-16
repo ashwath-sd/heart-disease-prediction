@@ -7,7 +7,7 @@ import pandas as pd
 # =====================================
 st.set_page_config(
     page_title="Heart Disease Prediction",
-    page_icon="❤️",
+    
     layout="centered"
 )
 
@@ -172,7 +172,7 @@ label {
 st.markdown("""
 <div class="header-box">
     <div class="header-title">
-        ❤️ Heart Disease Prediction
+         Heart Disease Prediction
     </div>
 
    
@@ -290,7 +290,7 @@ if st.button("🔍 Predict Heart Disease Risk"):
 
         st.markdown("""
         <div class="result-high">
-            ⚠️ High Risk of Heart Disease
+             High Risk of Heart Disease
         </div>
         """, unsafe_allow_html=True)
 
@@ -298,7 +298,7 @@ if st.button("🔍 Predict Heart Disease Risk"):
 
         st.markdown("""
         <div class="result-low">
-            ✅ Low Risk of Heart Disease
+             Low Risk of Heart Disease
         </div>
         """, unsafe_allow_html=True)
 
