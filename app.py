@@ -2,191 +2,207 @@ import streamlit as st
 import pickle
 import pandas as pd
 
-# =========================
+# ==========================================
 # PAGE CONFIG
-# =========================
+# ==========================================
 st.set_page_config(
     page_title="Heart Disease Prediction",
     page_icon="❤️",
     layout="wide"
 )
 
-# =========================
+# ==========================================
 # CUSTOM CSS
-# =========================
+# ==========================================
 st.markdown("""
 <style>
 
 /* ===== BACKGROUND ===== */
 .stApp {
-    background-color: #f4f7fb;
+    background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== REMOVE STREAMLIT DEFAULT SPACE ===== */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 /* ===== HEADER ===== */
-.header-box {
+.header-container {
     background: linear-gradient(135deg, #0f172a, #2563eb);
-    padding: 35px;
-    border-radius: 25px;
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
     color: white;
-    margin-bottom: 25px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
 }
 
 .header-title {
-    font-size: 40px;
-    font-weight: bold;
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .header-subtitle {
-    font-size: 16px;
+    font-size: 17px;
     color: #dbeafe;
-    margin-top: 10px;
 }
 
-/* ===== CARD ===== */
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
+/* ===== MAIN CARD ===== */
+.main-card {
+    background: rgba(255,255,255,0.95);
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0px 5px 18px rgba(0,0,0,0.08);
 }
 
 /* ===== SECTION TITLE ===== */
 .section-title {
-    font-size: 30px;
-    font-weight: bold;
-    color: #111827;
-    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 25px;
 }
 
 /* ===== LABELS ===== */
 label {
-    color: #111827 !important;
+    color: #1e293b !important;
     font-size: 15px !important;
     font-weight: 600 !important;
 }
 
-/* ===== INPUT BOX ===== */
+/* ===== NUMBER INPUT ===== */
 .stNumberInput input {
-    background-color: #f9fafb !important;
-    border: 1px solid #d1d5db !important;
-    border-radius: 10px !important;
-    height: 40px !important;
-    font-size: 14px !important;
+    background-color: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    color: #111827 !important;
+    font-size: 15px !important;
+    padding: 10px !important;
+    height: 42px !important;
 }
 
+/* ===== SELECT BOX ===== */
 .stSelectbox div[data-baseweb="select"] {
-    background-color: #f9fafb !important;
-    border: 1px solid #d1d5db !important;
-    border-radius: 10px !important;
-    min-height: 40px !important;
+    background-color: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    min-height: 42px !important;
+}
+
+/* ===== SELECT TEXT ===== */
+.stSelectbox div {
+    color: #111827 !important;
+    font-size: 15px !important;
+}
+
+/* ===== INPUT HOVER ===== */
+.stNumberInput input:hover,
+.stSelectbox div[data-baseweb="select"]:hover {
+    border: 1.5px solid #2563eb !important;
 }
 
 /* ===== BUTTON ===== */
 .stButton > button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 14px;
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
-    border: none;
-    border-radius: 12px;
-    height: 45px;
-    width: 220px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    margin-top: 15px;
 }
 
 .stButton > button:hover {
+    transform: translateY(-2px);
     background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    box-shadow: 0px 5px 15px rgba(37,99,235,0.25);
     color: white;
 }
 
 /* ===== RESULT BOX ===== */
-.result-box {
+.result-success {
     background: #ecfdf5;
-    border: 1px solid #bbf7d0;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 14px;
+    border-left: 6px solid #22c55e;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
     font-weight: 600;
     color: #166534;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
-.result-box-danger {
+.result-danger {
     background: #fef2f2;
-    border: 1px solid #fecaca;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 14px;
+    border-left: 6px solid #ef4444;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
     font-weight: 600;
     color: #991b1b;
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 25px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
+# ==========================================
 # HEADER
-# =========================
+# ==========================================
 st.markdown("""
-<div class="header-box">
+<div class="header-container">
     <div class="header-title">
         ❤️ Heart Disease Prediction
     </div>
 
     <div class="header-subtitle">
-        Predict whether a patient is at risk of heart disease
-        using machine learning and medical attributes.
+        Predict heart disease risk using AI-powered healthcare analytics
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# =========================
+# ==========================================
 # LOAD MODEL
-# =========================
+# ==========================================
 model = pickle.load(open("gb_model.pkl", "rb"))
 columns = pickle.load(open("columns.pkl", "rb"))
 
-# =========================
-# TITLE
-# =========================
+# ==========================================
+# MAIN CARD
+# ==========================================
+st.markdown('<div class="main-card">', unsafe_allow_html=True)
+
 st.markdown("""
 <div class="section-title">
-📋 Patient Information
+📋 Patient Medical Details
 </div>
 """, unsafe_allow_html=True)
 
-# =========================
-# THREE CARDS
-# =========================
-col1, col2, col3 = st.columns(3)
+# ==========================================
+# INPUT FIELDS
+# ==========================================
+col1, col2 = st.columns(2)
 
-# ===== CARD 1 =====
 with col1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
 
-    st.subheader("🧑 Personal Info")
-
-    age = st.number_input("Age", 1, 120, 30)
-
-    sex = st.selectbox(
-        "Gender",
-        ["Male", "Female"]
+    age = st.number_input(
+        "Age",
+        1, 120, 30
     )
-
-    cp = st.selectbox(
-        "Chest Pain Type",
-        ["ATA", "NAP", "ASY", "TA"]
-    )
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# ===== CARD 2 =====
-with col2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-
-    st.subheader("💼 Medical Details")
 
     bp = st.number_input(
         "Resting Blood Pressure",
@@ -203,17 +219,21 @@ with col2:
         60, 250, 150
     )
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# ===== CARD 3 =====
-with col3:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-
-    st.subheader("📊 Health Analysis")
-
     oldpeak = st.number_input(
         "Oldpeak",
         0.0, 10.0, 1.0
+    )
+
+with col2:
+
+    sex = st.selectbox(
+        "Sex",
+        ["Male", "Female"]
+    )
+
+    cp = st.selectbox(
+        "Chest Pain Type",
+        ["ATA", "NAP", "ASY", "TA"]
     )
 
     restecg = st.selectbox(
@@ -231,12 +251,10 @@ with col3:
         ["Up", "Flat", "Down"]
     )
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# =========================
-# BUTTON
-# =========================
-if st.button("🔍 Generate Prediction"):
+# ==========================================
+# PREDICTION
+# ==========================================
+if st.button("🔍 Predict Heart Disease Risk"):
 
     input_dict = {
         "Age": age,
@@ -251,38 +269,39 @@ if st.button("🔍 Generate Prediction"):
         "ST_Slope": slope
     }
 
-    # DataFrame
+    # Create DataFrame
     df = pd.DataFrame([input_dict])
 
     # Encoding
     df = pd.get_dummies(df)
 
-    # Match columns
+    # Match Columns
     df = df.reindex(columns=columns, fill_value=0)
 
     # Prediction
     prediction = model.predict(df)
 
-    # =========================
-    # RESULT SECTION
-    # =========================
-    st.markdown("""
-    <br>
-    <div class="section-title">
-    📌 Prediction Result
-    </div>
-    """, unsafe_allow_html=True)
-
+    # RESULT
     if prediction[0] == 1:
+
         st.markdown("""
-        <div class="result-box-danger">
-        ⚠️ Patient has High Risk of Heart Disease
+        <div class="result-danger">
+            ⚠️ Prediction Result: High Risk of Heart Disease
         </div>
         """, unsafe_allow_html=True)
 
     else:
+
         st.markdown("""
-        <div class="result-box">
-        ✅ Patient has Low Risk of Heart Disease
+        <div class="result-success">
+            ✅ Prediction Result: Low Risk of Heart Disease
         </div>
         """, unsafe_allow_html=True)
+
+st.markdown("""
+<div class="footer">
+    AI Powered Healthcare Prediction System
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
