@@ -22,6 +22,7 @@ st.markdown("""
     background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
     background-attachment: fixed;
 }
+}
 
 /* ===== HEADER ===== */
 .header-box {
