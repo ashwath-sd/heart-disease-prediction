@@ -167,10 +167,8 @@ st.markdown("""
         ❤️ Heart Disease Prediction
     </div>
 
-    <div class="header-subtitle">
-        AI Powered Healthcare Prediction Application
-    </div>
-</div>
+   
+
 """, unsafe_allow_html=True)
 
 # =====================================
